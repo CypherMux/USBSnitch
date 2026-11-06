@@ -50,7 +50,7 @@ Because this tool is relies fully on Python and desktop notifications to operate
 
 **3. Enable and start the background service:**
 
-```sudo systemctl enable --now USBSnitch```
+```sudo systemctl enable --now usb-snitch.service```
 
 **4. Plug in a USB device. A desktop notification will now appear whenever you plug in any device.
 
@@ -60,15 +60,15 @@ Because this tool runs as a system daemon, you can control it just like any othe
 
 *  **Stop Monitoring:**
 
-```sudo systemctl stop usbsnitch```
+```sudo systemctl stop usbsnitch.service```
 
 *  **Start Monitoring:**
 
-```sudo systemctl start usbsnitch```
+```sudo systemctl start usbsnitch.service```
 
 *  **Check the system logs:**
 
-```journalctl -u usbsnitch -f```
+```journalctl -u usbsnitch.service -f```
 
 ## Disclaimer
 
