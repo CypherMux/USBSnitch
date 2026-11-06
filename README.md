@@ -1,4 +1,4 @@
-# usb-snitch
+# USBSnitch
 A real time notification visualizer for the USBGuard software.
 
 
@@ -6,7 +6,7 @@ A real time notification visualizer for the USBGuard software.
 
 I use USBGuard to block unauthorized hardware from connecting to my machine. However, checking the status manually by running `sudo usbguard list-devices` every time I happen to plug something in is extremely tedious.
 
-`usb snitch` solves this by running silently in the background as a `systemd` daemon. It listens to kernel `udev` events, checks the hardware's authorization state, and instantly pops up a desktop notification. By doing that you know exactly what was plugged in and whether its data transfer capabilities were outright blocked or fully authorized without ever touching a terminal.
+`USBSnitch` solves this by running silently in the background as a `systemd` daemon. It listens to kernel `udev` events, checks the hardware's authorization state, and instantly pops up a desktop notification. By doing that you know exactly what was plugged in and whether its data transfer capabilities were outright blocked or fully authorized without ever touching a terminal.
 
 ## Features
 
@@ -20,7 +20,7 @@ I use USBGuard to block unauthorized hardware from connecting to my machine. How
 
 ## How It Works
 
-`usb snitch` is a lightweight Bash script that uses `udevadm monitor` to listen for USB "add" events. When a device is inserted, it reads the device's `sysfs` attributes directly from the kernel:
+`USBSnitch` is a lightweight Bash script that uses `udevadm monitor` to listen for USB "add" events. When a device is inserted, it reads the device's `sysfs` attributes directly from the kernel:
 
 **1.** It grabs the Vendor ID, product ID, and Manufacturer.
 
