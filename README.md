@@ -30,3 +30,47 @@ I use USBGuard to block unauthorized hardware from connecting to my machine. How
 
 **4.** It finally sends the data to `notify-send` so the alert appears as a notification on your desktop.
 
+## Dependencies
+
+Because this tool is relies fully on Python and desktop notifications to operate, you will need to install the following packages in order for it to function correctly:
+
+*  **Arch**: `sudo pacman -S python-pyudev libnotify`
+
+*  **Debian/Ubuntu:** `sudo apt install python3-yudev libnotify-bin`
+
+## Installation & Usage
+
+**1. Clone the repository:**
+
+```git clone https://github.com/CypherMux/USBSnitch.git && cd USBSnitch```
+
+**2. Run the installer *(this will install all dependencies necessary, copy the script, and set up the systemd service)*:
+
+```sudo ./install.sh```
+
+**3. Enable and start the background service:**
+
+```sudo systemctl enable --now USBSnitch```
+
+**4. Plug in a USB device. A desktop notification will now appear whenever you plug in any device.
+
+## How To Manage The Service
+
+Because this tool runs as a system daemon, you can control it just like any other systemd service:
+
+*  **Stop Monitoring:**
+
+```sudo systemctl stop usbsnitch```
+
+*  **Start Monitoring:**
+
+```sudo systemctl start usbsnitch```
+
+*  **Check the system logs:**
+
+```journalctl -u usbsnitch -f```
+
+## Disclaimer
+
+*This tool is a visualizer for existing USB security policies you may have on your system *(such as USBGuard)*. It does not block devices itself as it only reports what the kernel and your security policies are already doing. Use responsibly on systems you own.*
+
