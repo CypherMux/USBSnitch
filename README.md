@@ -46,7 +46,7 @@ Because this tool is relies fully on Python and desktop notifications to operate
 
 **2. Run the installer *(this will install all dependencies necessary, copy the script, and set up the systemd service)*:
 
-```sudo ./install.sh```
+```chmod +x install.sh && sudo ./install.sh```
 
 **3. Enable and start the background service:**
 
