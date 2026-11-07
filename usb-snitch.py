@@ -37,7 +37,8 @@ return "Unknown USB Device"
 
 def monitor_usb():
     context = pyudev.Context()
-    monitor = pyudev.Monitor.from_netlink(context) monitor.filter_by(subsystem='usb')
+    monitor = pyudev.Monitor.from_netlink(context) 
+    monitor.filter_by(subsystem='usb')
 
   print("[*] USBSnitch is active. Currently monitoring for USB events...")
 
