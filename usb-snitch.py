@@ -56,11 +56,11 @@ sys_path = device.sys_path
 auth_file = os.path.join(sys_path, 'authorized')
 
 is_authorized = True
-if
-os.path.exists(auth_file):
+if os.path.exists(auth_file):
     try:
         with open(auth_file,'r' as f:
-f.read().strip() == '0':
+          f.read().strip() == '0':
+            is_authorized= False
 
 is_authorized= False
 except Exception:
