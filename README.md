@@ -60,15 +60,15 @@ Because this tool runs as a system daemon, you can control it just like any othe
 
 *  **Stop Monitoring:**
 
-```sudo systemctl stop usbsnitch.service```
+```sudo systemctl stop usb-snitch.service```
 
 *  **Start Monitoring:**
 
-```sudo systemctl start usbsnitch.service```
+```sudo systemctl start usb-snitch.service```
 
 *  **Check the system logs:**
 
-```journalctl -u usbsnitch.service -f```
+```journalctl -u usb-snitch.service -f```
 
 ## Disclaimer
 
