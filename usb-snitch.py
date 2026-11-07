@@ -42,7 +42,7 @@ def monitor_usb():
 
     print("[*] USBSnitch is active. Currently monitoring for USB events...")
 
-  for device in iter(monitor.poll,None) :
+  for device in iter(monitor.poll,None):
 
       if device.action == 'add':
           time.sleep(0.5) # <--- Wati for kernel to populate sysfs
