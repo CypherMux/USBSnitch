@@ -40,7 +40,7 @@ def monitor_usb():
     monitor = pyudev.Monitor.from_netlink(context) 
     monitor.filter_by(subsystem='usb')
 
-  print("[*] USBSnitch is active. Currently monitoring for USB events...")
+    print("[*] USBSnitch is active. Currently monitoring for USB events...")
 
   for device in iter(monitor.poll,None):
 
@@ -53,8 +53,7 @@ def monitor_usb():
 
 # Check USBGuard authorization status
 sys_path = device.sys_path
-auth_file =
-os.path.join(sys_path, 'authorized')
+auth_file = os.path.join(sys_path, 'authorized')
 
 is_authorized = True
 if
