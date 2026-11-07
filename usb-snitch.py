@@ -47,12 +47,9 @@ def monitor_usb():
       if device.action == 'add':
           time.sleep(0.5) # <--- Wati for kernel to populate sysfs
 
-          vendor =
-device.get('ID_VENDOR_FROM_DATABASE', device.get('ID_VENDOR', 'Unknown'))
-          model =
-device.get('ID_MODEL_FROM_DATABASE', device.get('ID_MODEL', 'Unknown'))
-          dev_type =
-get_device_type(device)
+          vendor = device.get('ID_VENDOR_FROM_DATABASE', device.get('ID_VENDOR', 'Unknown'))
+          model = device.get('ID_MODEL_FROM_DATABASE', device.get('ID_MODEL', 'Unknown'))
+          dev_type = get_device_type(device)
 
 # Check USBGuard authorization status
 sys_path = device.sys_path
