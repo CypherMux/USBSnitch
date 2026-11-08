@@ -6,34 +6,32 @@ import time
 import sys
 
 def send_notification(title, message, urgency, icon):
-  """Sends a desktop notification using notify-send."""
-  try:
-      subprocess.run(["notify-send","-u", urgency, "-i", icon, title, message], check=True)
-  except FileNotFoundError:
-      printf("[-] notify-send not found. Please install libnotify.")
-  except Exception as e:
-      printf(f"[-] Failed to send notification: {e}")
+  """Sends a desktop notification by running notify-send as the logged-in user."""
+try:
+        cmd = [ "systemd-run", "--user", "--uid=1000", "--setenv=DISPLAY=:0", "--setenv=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus", "--setenv=XDG_RUNTIME_DIR=/run/user/1000", "notify-send", "-u", urgency, "-i", icon, title, message]
+        print(f"[*] Attempting to notify: {title} - {message}")
+        subprocess.run(cmd, check == True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) 
+except Exception as e:
+    print(f"[-] Failed to send notification: {e}")
 
 def get_device_type(device):
     """Guesses the device type based on its properties."""
 
-# The Mass Storage Class
-
-    if device.get('ID_USB_INTERFACES','').find('0806') != -1 or device.get ('ID_USB_CLASS_FROM_DATABASE','') == 'Mass Storage':
+    # The Mass Storage Class
+    if device.get('ID_USB_INTERFACES','').find('0806') != -1 or device.get('ID_USB_CLASS_FROM_DATABASE','') == 'Mass Storage':
         return "Storage Device"
 
-# HID Devices
-device_name = device.get('ID_MODEL','').lower()
-if 'keyboard' in device_name:
-    return "Keyboard (HID)"
-elif 'mouse' in device_name:
-    return "Mouse (HID)"
-elif 'hub' in device_name:
-    return "USB Hub"
-elif device.get('ID_MODEL'):
-    return device.get('ID_MODEL')
-
-return "Unknown USB Device"
+    # HID Devices
+    device_name = device.get('ID_MODEL','').lower()
+    if 'keyboard' in device_name:
+        return "Keyboard (HID)"
+    elif 'mouse' in device_name:
+        return "Mouse (HID)"
+    elif 'hub' in device_name:
+        return "USB Hub"
+    elif device.get('ID_MODEL'):
+        return device.get('ID_MODEL')
+    return "Unknown USB Device"
 
 def monitor_usb():
     context = pyudev.Context()
@@ -42,46 +40,44 @@ def monitor_usb():
 
     print("[*] USBSnitch is active. Currently monitoring for USB events...")
 
-  for device in iter(monitor,poll,None):
+    for device in iter(monitor.poll,None):
 
-      if device.action == 'add':
-          time.sleep(0.5) # <--- Wati for kernel to populate sysfs
+        if device.action == 'add':
+            time.sleep(0.5) # <--- Wati for kernel to populate sysfs
 
-          vendor = device.get('ID_VENDOR_FROM_DATABASE', device.get('ID_VENDOR', 'Unknown'))
-          model = device.get('ID_MODEL_FROM_DATABASE', device.get('ID_MODEL', 'Unknown'))
-          dev_type = get_device_type(device)
+            vendor = device.get('ID_VENDOR_FROM_DATABASE', device.get('ID_VENDOR', 'Unknown'))
+            model = device.get('ID_MODEL_FROM_DATABASE', device.get('ID_MODEL', 'Unknown'))
+            dev_type = get_device_type(device)
 
 # Check USBGuard authorization status
-sys_path = device.sys_path
-auth_file = os.path.join(sys_path, 'authorized')
+            sys_path = device.sys_path
+            auth_file = os.path.join(sys_path, 'authorized')
 
-is_authorized = True
-if os.path.exists(auth_file):
-    try:
-        with open(auth_file,'r' as f:
-          f.read().strip() == '0':
-            is_authorized= False
-
-is_authorized= False
-except Exception:
-  pass
+            is_authorized = True
+            if os.path.exists(auth_file):
+                try:
+                    with open(auth_file, 'r') as f:
+                        if f.read().strip() == '0':
+                            is_authorized = False
+                except Exception:
+                    pass                                                           
 
 # Format messages based on said authorization parameters
 
-if is_authorized:
-    status = "AUTHORIZED (Data Allowed)"
-    urgency = "normal"
-    icon= "dialog-warning"
-else:
-    status = "BLOCKED (Data cut off by USBGuard)"
-    urgency = "critical"
-    icon = "dialog-error"
+            if is_authorized:
+                status = "AUTHORIZED (Data Allowed)"
+                urgency = "normal"
+                icon= "dialog-warning"
+            else:
+                status = "BLOCKED (Data cut off by USBGuard)"
+                urgency = "critical"
+                icon = "dialog-error"
 
-  title= "USBSnitch Alert"
-  message = f"Device: {dev_type}\nVendor: {vendor}\nModel: {model}\nStatus: {status}"
+            title = "USBSnitch Alert"
+            message = f"Device: {dev_type}\nVendor: {vendor}\nModel: {model}\nStatus: {status}"
 
-  printf(f"\n{title}\n{message}")
-  send_notifications(title, message, urgency, icon)
+            print(f"\n{title}\n{message}")
+            send_notification(title, message, urgency, icon)
 
 if __name__ == "__main__":
     if os.geteuid() != 0:
@@ -89,7 +85,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     try:
-        monitor_usb()
+    	monitor_usb()
     except KeyboardInterrupt:
-        printf("\n[*] Stopping USBSnitch.")
+    	printf("\n[*] Stopping USBSnitch.")
   
