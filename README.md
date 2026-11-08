@@ -1,5 +1,14 @@
-# USBSnitch
-A real time notification visualizer for the USBGuard software.
+                                                        USBSnitch
+
+
+
+
+
+<img width="1028" height="1028" alt="concept3" src="https://github.com/user-attachments/assets/f612ed36-2098-4e22-ab59-6edbcf613ef6" />
+
+
+
+                              A real time notification visualizer for the USBGuard software.
 
 
 ## Why I Made This
