@@ -8,7 +8,7 @@
 
 
 
-                              A real time notification visualizer for the USBGuard software.
+## *A real time notification visualizer for the USBGuard software.*
 
 
 ## Why I Made This
