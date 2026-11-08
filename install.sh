@@ -9,11 +9,9 @@ echo "[*] Installing USBSnitch..."
 
 # Install the dependencies
 if command -v pacman &> /dev/null; then
-  pacman -S --needed --noconfirm
-python-pyudev libnotify
+  pacman -S --needed --noconfirm python-pyudev libnotify
 elif command -v apt &> /dev/null; then
-  apt update && apt install -y
-python3-pyudev libnotify-bin
+  apt update && apt install -y python3-pyudev libnotify-bin
 else
   echo "[-] Warning: Unsupported package manager. Please install python-pyudev and libnotify manually."
 fi
