@@ -6,13 +6,13 @@ import time
 import sys
 
 def send_notification(title, message, urgency, icon):
-  """Sends a desktop notification by running notify-send as the logged-in user."""
-try:
-        cmd = [ "systemd-run", "--user", "--uid=1000", "--setenv=DISPLAY=:0", "--setenv=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus", "--setenv=XDG_RUNTIME_DIR=/run/user/1000", "notify-send", "-u", urgency, "-i", icon, title, message]
-        print(f"[*] Attempting to notify: {title} - {message}")
-        subprocess.run(cmd, check == True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) 
-except Exception as e:
-    print(f"[-] Failed to send notification: {e}")
+    """Sends a desktop notification by switching to the user context."""
+    try:
+        safe_message = message.replace('\n', ' | ' )
+        cmd = f"DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus XDG_RUNTIME_DIR=/run/user/1000 notify-send -u {urgency} -i {icon} '{title}' '{safe_message}'"
+        subprocess.run(["su", "cachykitty", "-c", cmd], check=True)
+    except Exception as e:
+        print(f"[-] Failed to send notification: {e}")
 
 def get_device_type(device):
     """Guesses the device type based on its properties."""
@@ -87,5 +87,5 @@ if __name__ == "__main__":
     try:
     	monitor_usb()
     except KeyboardInterrupt:
-    	printf("\n[*] Stopping USBSnitch.")
+    	print("\n[*] Stopping USBSnitch.")
   
