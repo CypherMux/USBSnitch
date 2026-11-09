@@ -61,7 +61,7 @@ Because this tool is relies fully on Python and desktop notifications to operate
 
 ```git clone https://github.com/CypherMux/USBSnitch.git && cd USBSnitch```
 
-**2. Run the installer *(this will install all dependencies necessary, copy the script, and set up the systemd service)*:
+**2. Run the installer *(this will install all dependencies necessary, copy the script, and set up the systemd service)*.**
 
 ```chmod +x install.sh && sudo ./install.sh```
 
@@ -69,7 +69,7 @@ Because this tool is relies fully on Python and desktop notifications to operate
 
 ```sudo systemctl enable --now usb-snitch.service```
 
-**4. Plug in a USB device. A desktop notification will now appear whenever you plug in any device.
+**4. Plug in a USB device. A desktop notification will now appear whenever you plug in any device.**
 
 ## How To Manage The Service
 
