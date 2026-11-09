@@ -43,4 +43,4 @@ Please paste the output of the service logs here:
 If applicable, add screenshots to help explain your problem.
 
 **Additional context**
-Add any other context about the problem here. Did you modify the `send_notification` function for your username/UID? If so which method are you using (e.g `sudo`, `-u`, `su -c`, systemd-run`)?
+Add any other context about the problem here. Did you modify the `send_notification` function for your username/UID? If so which method are you using (e.g `sudo`, `-u`, `su -c`, `systemd-run`)?
