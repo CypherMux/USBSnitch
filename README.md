@@ -71,6 +71,31 @@ Because this tool is relies fully on Python and desktop notifications to operate
 
 **4. Plug in a USB device. A desktop notification will now appear whenever you plug in any device.**
 
+## Configuration *(EXTREMELY IMPORTANT)*
+
+Because this tool runs as root but needs to send notifications to your user desktop, you **must** configure it with your specific username and UID.
+
+*  **1. Find your UID by running the command:**
+
+```id -u``` *(it is usually 1000 but it may differ depending on system setup)*
+
+*  **2.**
+
+Open the script using the command:
+
+```sudo nano /usr/local/bin/usb-snitch.py``` *(will only work AFTER installation)*
+
+Edit the ```send_notification``` function by changing the name ```cachykitty``` in the script *(my username)* to your own and your UID to your own via the ```DBUS_SESSION_BUS_ADDRESS``` string. Examples of where you must edit the script are shown below and circled:
+
+
+
+
+
+
+
+<img width="901" height="417" alt="ssFINAL" src="https://github.com/user-attachments/assets/be846b8d-6521-41db-b5bf-a1ee648f4f4f" />
+
+
 ## How To Manage The Service
 
 Because this tool runs as a system daemon, you can control it just like any other systemd service:
